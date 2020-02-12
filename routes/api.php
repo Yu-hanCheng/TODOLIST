@@ -16,11 +16,9 @@ use App\Task;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-// Route::get('done','TaskController@done');
 Route::post('done',function ($id){
     Task::find($id)->update([
         'done' => 1
     ]);
 });
-// Route::('task','TaskController@update');
 Route::resource('task','TaskController')->only(['store','update','destroy']);
