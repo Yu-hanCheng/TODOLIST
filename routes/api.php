@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Task;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-// Route::post('task','TaskController@store');
+// Route::get('done','TaskController@done');
+Route::post('done',function ($id){
+    Task::find($id)->update([
+        'done' => 1
+    ]);
+});
 // Route::('task','TaskController@update');
 Route::resource('task','TaskController')->only(['store','update','destroy']);

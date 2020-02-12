@@ -42,13 +42,13 @@
 
                 <div class="panel-body">
                     <!-- New Task Form -->
-                    <form action="" method="POST" class="form-horizontal">
+                    <form action="/task" method="POST" class="form-horizontal">
                         <!-- Task Name -->
                         <div class="form-group">
                             <label for="task-name" class="col-sm-3 control-label">Task</label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="name" id="task-name" class="form-control" value="">
+                                <input type="text" name="content" id="task-name" class="form-control" value="">
                             </div>
                         </div>
 
@@ -76,26 +76,24 @@
                             <th>&nbsp;</th>
                         </thead>
                         <tbody>
+                        @foreach ($tasks as $task)
                             <tr>
                                 <td class="col-sm-6">
-                                    <del>Jogging</del>
+                                    <del>{{ $task->content }}</del>
                                 </td>
                                 <!-- Task Buttons -->
+                                <input value="{{ $task->id }}" >
                                 <td class="col-sm-6">
+                                @if($task->done === 1)
                                         <button type="submit" class="btn btn-success" disabled ><i class="fa fa-btn fa-thumbs-o-up"></i>completed</button>
-                                        <button type="submit" class="btn btn-primary"><i class="fa fa-btn fa-pencil"></i>edit</button>
-                                        <button type="submit" class="btn btn-danger"><i class="fa fa-btn fa-trash"></i>delete</button>
+                                @else
+                                        <button type="submit" class="btn btn-success" ><i class="fa fa-btn fa-thumbs-o-up"></i>completed</button>
+                                @endif
+                                        <button type="submit" class="btn btn-primary" href="{{ route('task/') }}"><i class="fa fa-btn fa-pencil"></i>edit</button>
+                                        <button type="submit" class="btn btn-danger"  href="{{ route('task/') }}"><i class="fa fa-btn fa-trash"></i>delete</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="col-sm-6">Homework</td>
-                                <!-- Task Buttons -->
-                                <td class="col-sm-6">
-                                        <button type="submit" class="btn btn-success"><i class="fa fa-btn fa-thumbs-o-up"></i>completed</button>
-                                        <button type="submit" class="btn btn-primary"><i class="fa fa-btn fa-pencil"></i>edit</button>
-                                        <button type="submit" class="btn btn-danger"><i class="fa fa-btn fa-trash"></i>delete</button>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
