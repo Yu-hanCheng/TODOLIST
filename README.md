@@ -1,2 +1,2 @@
 ## 操作畫面
-* ![](https://i.imgur.com/pf83zYP.gif)
+* ![image](https://github.com/Yu-hanCheng/TODOLIST/blob/master/Feb-12-2020%2020-03-21.gif)
