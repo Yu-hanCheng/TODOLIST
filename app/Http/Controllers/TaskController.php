@@ -9,13 +9,17 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $tasks = Task::all();
         return view('todolist', compact('tasks'));
     }
-    public function store(Request $request){
-        $va = Validator::make($request->all(), [
-            'content' => 'required|max:10',
+
+    public function store(Request $request)
+    {
+        $va = Validator::make(
+            $request->all(), 
+            [ 'content' => 'required|max:10',
         ]);
         if ($va->fails()) {
             return response()->json(['result'=>$va->errors()],416);
@@ -35,9 +39,12 @@ class TaskController extends Controller
 
         return redirect('/');
     }
-    public function update(Request $request,$id){
-        $va = Validator::make($request->all(), [
-            'content' => 'required|max:10',
+
+    public function update(Request $request, Task $taskObj)
+    {
+        $va = Validator::make(
+            $request->all(), 
+            [ 'content' => 'required|max:10',
         ]);
         if ($va->fails()) {
             return response()->json(['result'=>$va->errors()],416);
@@ -45,7 +52,7 @@ class TaskController extends Controller
 
         DB::beginTransaction();
         try {
-            Task::find($id)->update([
+            $taskObj->update([
                 'content' => $request->content,
                 'done' => false
             ]);
@@ -56,25 +63,24 @@ class TaskController extends Controller
         DB::commit();
         return redirect('/');
     }
-    public function destroy($id){
-        
+    public function destroy(Task $taskObj)
+    {
         DB::beginTransaction();
         try {
-            Task::find($id)->delete();
+            $taskObj->delete();
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['result'=>$th],500);
         }
         DB::commit();
         return redirect('/');
-
     }
 
-    public function done($id){
-        
+    public function done(Task $taskObj)
+    {
         DB::beginTransaction();
         try {
-            Task::find($id)->update([
+            $taskObj->update([
                 'done' => 1
             ]);
         } catch (\Throwable $th) {
@@ -85,7 +91,9 @@ class TaskController extends Controller
         $tasks = Task::all();
         return redirect('/');
     }
-    public function edit($id){
+
+    public function edit($id)
+    {
         $task = Task::find($id);
         return view('edit', compact('task'));
     }

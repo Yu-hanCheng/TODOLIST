@@ -14,7 +14,7 @@
 
 Route::get('/', 'TaskController@index')->name('index');
 Route::post('task','TaskController@store')->name('task');
-Route::get('task/{id}', 'TaskController@edit')->name('task.edit');
-Route::put('task/{id}', 'TaskController@update')->name('task.update');
-Route::put('task/done/{id}', 'TaskController@done')->name('task.done');
-Route::delete('task/{id}', 'TaskController@destroy')->name('task.delete');
+Route::get('task/{taskObj}', 'TaskController@edit')->name('task.edit');
+Route::put('task/{taskObj}', 'TaskController@update')->name('task.update');
+Route::put('task/done/{taskObj}', 'TaskController@done')->name('task.done');
+Route::delete('task/{taskObj}', 'TaskController@destroy')->name('task.delete');
