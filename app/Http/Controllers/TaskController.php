@@ -20,6 +20,7 @@ class TaskController extends Controller
         $va = Validator::make(
             $request->all(), 
             [ 'content' => 'required|max:10',
+                'done' => 'required|boolean'
         ]);
         if ($va->fails()) {
             return response()->json(['result'=>$va->errors()],416);
@@ -27,10 +28,7 @@ class TaskController extends Controller
 
         DB::beginTransaction();
         try {
-            Task::create([
-                'content' => $request->content,
-                'done' => 0,
-            ]);
+            Task::create($va->valid());
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['result'=>$th],500);
@@ -52,10 +50,7 @@ class TaskController extends Controller
 
         DB::beginTransaction();
         try {
-            $taskObj->update([
-                'content' => $request->content,
-                'done' => false
-            ]);
+            $taskObj->update($va->valid());
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['result'=>$th],500);

@@ -17,6 +17,7 @@
 
                             <div class="col-sm-6">
                                 <input type="text" name="content" id="task-name" class="form-control" value="">
+                                <input type="hidden" name="done" id="task-done" class="form-control" value="0">
                             </div>
                         </div>
 
